@@ -4,11 +4,9 @@ import time
 import random
 
 def iniciar_jogo():
-    # Configurações iniciais para captura de vídeo
     cap = cv2.VideoCapture(0)
-    center_area_size = 100  # Tamanho do quadrado central
+    center_area_size = 100
 
-    # Função para exibir contagem regressiva e indicar área central
     def contagem_regressiva(frame, numero):
         font = cv2.FONT_HERSHEY_SIMPLEX
         cv2.putText(frame, str(numero), (int(frame.shape[1] / 2 - 30), int(frame.shape[0] / 2)), font, 2, (0, 0, 255), 3)
@@ -17,9 +15,8 @@ def iniciar_jogo():
                       (int(frame.shape[1] / 2 + center_area_size // 2), int(frame.shape[0] / 2 + center_area_size // 2)),
                       (255, 0, 0), 2)
 
-    # Temporizador para contagem regressiva
     start_time = time.time()
-    countdown_time = 5  # segundos de contagem regressiva
+    countdown_time = 5 
     mean_color = None
 
     while True:
@@ -48,7 +45,6 @@ def iniciar_jogo():
             cv2.destroyAllWindows()
             return False
 
-    # Define a faixa de cor do objeto com base na cor média detectada
     if mean_color is not None:
         hue = int(mean_color[0])
         saturation = int(mean_color[1])
@@ -115,7 +111,6 @@ def iniciar_jogo():
             cv2.circle(frame, circle_position, 20, (255, 0, 0), -1)
             elapsed_circle_time = time.time() - circle_start_time
 
-            # Exibir a quantidade de alvos acertados
             cv2.putText(frame, f"Alvos acertados: {current_circle}", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
 
             if elapsed_circle_time > 3:
@@ -140,7 +135,6 @@ def iniciar_jogo():
     cv2.destroyAllWindows()
     return False
 
-# Loop principal para reiniciar o jogo
 while True:
     if not iniciar_jogo():
         break
